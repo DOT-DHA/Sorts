@@ -18,9 +18,11 @@ def HeapSort(*args):
         display[0] = updateBar(display[0], data[0], max(data), win)
         display[i] = updateBar(display[i], data[i], max(data), win)
 
-        flash([display[0], display[i]], "green")
+        flash([display[0], display[i]], "Red")
+        finish(display[i])
+    finish(display[0])
     return data
-    
+
 
 def buildMaxHeap(data, display, win):
     for i in range((len(data)-1)//2, -1, -1):
@@ -55,7 +57,7 @@ def maxHeapify(data, display, index, win, end = 0):
         display[index] = updateBar(display[index], data[index], max(data), win)
         display[largest] = updateBar(display[largest], data[largest], max(data), win)
 
-        flash([display[index], display[largest]], "blue")
+        flash([display[index], display[largest]], "Blue")
 
         data = maxHeapify(data, display, largest, win, end)
 

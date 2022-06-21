@@ -1,4 +1,5 @@
 from graphics import *
+from Display import *
 from Sorts.CountingSort import CountingSort
 
 def RadixSort(*args):
@@ -8,3 +9,5 @@ def RadixSort(*args):
     while max(data)/divisor > 1:
         data = CountingSort(data, display, win, 10, divisor)
         divisor *= 10
+        
+    return data

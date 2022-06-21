@@ -14,10 +14,10 @@ def CountingSort(*args):
     for i in range(len(data)):
         if divisor > 0:
             count[(data[i]//divisor) % 10] += 1
-            flash(display[i], "blue")
+            flash(display[i], "Yellow")
         else:
             count[data[i]] += 1
-            flash(display[i], "blue")
+            flash(display[i], "Yellow")
 
     for i in range(1, len(count)):
         count[i] += count[i-1]
@@ -41,6 +41,7 @@ def CountingSort(*args):
 
     for i in range(len(sorted)):
         display[i] = updateBar(display[i], data[i], max(data), win)
-        flash(display[i], "green")
+        flash(display[i], "Red")
+        finish(display[i])
     
     return data

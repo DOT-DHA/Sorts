@@ -16,7 +16,7 @@ def updateBar(rect, newY, lMax, win):
 
     return newRect
 
-def flash(objects, color = "grey"):
+def flash(objects, color = "Red"):
     if type(objects) == type([]):
         for i in objects:
             i.setFill(color)
@@ -29,11 +29,11 @@ def flash(objects, color = "grey"):
 
     if type(objects) == type([]):
         for i in objects:
-            i.setFill("grey")
-            i.setOutline("grey")
+            i.setFill("Slate Gray")
+            i.setOutline("Slate Gray")
     else:
-        objects.setFill("grey")
-        objects.setOutline("grey")
+        objects.setFill("Slate Gray")
+        objects.setOutline("Slate Gray")
 
 def boxify(object):
     return Rectangle(
@@ -48,3 +48,7 @@ def boxify(object):
 def reset(display):
     for i in display:
         i.undraw()
+
+def finish(rect):
+    rect.setFill("Forest Green")
+    rect.setOutline("Forest Green")

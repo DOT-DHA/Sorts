@@ -73,19 +73,20 @@ if __name__ == "__main__":
 
         close = Text(Point(WINWIDTH/4*3, WINHEIGHT/2), "close")
         redo = Text(Point(WINWIDTH/4, WINHEIGHT/2), "redo")
+
         closeBox = boxify(close)
         redoBox = boxify(redo)
 
-        closeBox.setFill("grey")
+        flash([closeBox, redoBox]),
         closeBox.setOutline("white")
-        close.setFill("white")
-        redoBox.setFill("grey")
         redoBox.setOutline("white")
+
+        close.setFill("white")
         redo.setFill("white")
 
         closeBox.draw(win)
-        close.draw(win)
         redoBox.draw(win)
+        close.draw(win)
         redo.draw(win)
 
         mouse = win.getMouse()

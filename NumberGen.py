@@ -36,6 +36,6 @@ def generateData(win, N=10, B=10, random = False):
         display[i] = rect
         rect.draw(win)
         
-        flash(display[i], "red")
+        flash(display[i], "Red")
 
     return data, display
