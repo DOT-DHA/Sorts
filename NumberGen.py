@@ -1,5 +1,5 @@
-from graphics import *
 import random as R
+from graphics import *
 from Display import flash
 
 def generateData(win, N=10, B=10, random = False):
@@ -13,15 +13,13 @@ def generateData(win, N=10, B=10, random = False):
     if len(data) > 0:
         if random:
             for i in range(N):
-                data[i] = R.randrange(B)
+                data[i] = int(R.triangular(0, B, B/10))
         else:
             for i in range(N):
                 data[i] = int(B * i / N)
     R.shuffle(data)
-
+    
     for i in range(N):
-        dataPoint = data[i]
-
         rect = Rectangle(
             Point(
                 WINWIDTH*(i/N),
@@ -29,13 +27,17 @@ def generateData(win, N=10, B=10, random = False):
             ),
             Point(
                 WINWIDTH*((i+1)/N),
-                WINHEIGHT*(dataPoint/max(data))
+                WINHEIGHT*(data[i]/max(data))
             )
         )
-        display[i].undraw()
         display[i] = rect
-        rect.draw(win)
-        
-        flash(display[i], "Red")
+    
+    fun = display[:]
+
+    while len(fun) > 0:
+        choice = R.choice(fun)
+        choice.draw(win)
+        fun.remove(choice)
+        flash(choice,"red")
 
     return data, display

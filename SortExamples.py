@@ -11,9 +11,9 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 5000
-    numberRange = 10
-    random = False
+    amountOfNumbers = 1000
+    numberRange = 10000
+    random = True
     done = False
 
     win = start("Sorting Examples", WINWIDTH, WINHEIGHT)
@@ -23,12 +23,12 @@ if __name__ == "__main__":
         data, display = generateData(win, amountOfNumbers, numberRange, random)
 
         menu = []
-        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4*3), "Bubble sort"))
-        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4), "Shell sort"))
-        menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4*3), "Merge sort"))
-        menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4), "Heap sort"))
-        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Counting sort"))
-        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4), "Radix sort"))
+        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4*3), "Bubble"))
+        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4), "Shell"))
+        menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4*3), "Merge"))
+        menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4), "Heap"))
+        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Counting"))
+        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4), "Radix"))
 
         functions = []
         functions.append(BubbleSort)
@@ -52,13 +52,15 @@ if __name__ == "__main__":
             i.setOutline("white")
             i.draw(win)
 
-        mouse = win.getMouse()
 
-        mousex = mouse.getX()
-        mousey = mouse.getY()
         chosen = False
-
         while not chosen:
+
+            mouse = win.getMouse()
+
+            mousex = mouse.getX()
+            mousey = mouse.getY()
+
             for i in range(len(boxes)):
                 if mousex >= boxes[i].getP1().getX() and mousex <= boxes[i].getP2().getX() and mousey >= boxes[i].getP1().getY() and mousey <= boxes[i].getP2().getY():
                     for j in boxes:
@@ -71,23 +73,23 @@ if __name__ == "__main__":
                     chosen = True
 
 
-        close = Text(Point(WINWIDTH/4*3, WINHEIGHT/2), "close")
-        redo = Text(Point(WINWIDTH/4, WINHEIGHT/2), "redo")
+        close = Text(Point(WINWIDTH/4*3, WINHEIGHT/2), "Exit")
+        again = Text(Point(WINWIDTH/4, WINHEIGHT/2), "Again?")
 
         closeBox = boxify(close)
-        redoBox = boxify(redo)
+        redoBox = boxify(again)
 
         flash([closeBox, redoBox]),
         closeBox.setOutline("white")
         redoBox.setOutline("white")
 
         close.setFill("white")
-        redo.setFill("white")
+        again.setFill("white")
 
         closeBox.draw(win)
         redoBox.draw(win)
         close.draw(win)
-        redo.draw(win)
+        again.draw(win)
 
         mouse = win.getMouse()
 
@@ -99,5 +101,5 @@ if __name__ == "__main__":
         closeBox.undraw()
         close.undraw()
         redoBox.undraw()
-        redo.undraw()
+        again.undraw()
         reset(display)

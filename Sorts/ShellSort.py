@@ -1,18 +1,27 @@
 from Display import *
 from graphics import *
+from Sorts.BubbleSort import BubbleSort
 
 
 def ShellSort(*args):
     data, display, win = args[0], args[1], args[2]
     done = False
-    dist = 2
     end = len(data)
+
+    found = False
+    cIndex = 0
+    gap = ciuraSeq(1)
+
+    while not found:
+        cIndex += 1
+        gap = ciuraSeq(cIndex)
+        if gap > end:
+            cIndex -= 1
+            found = True
 
     while not done:
         done = True
-        gap = end//dist
-        if gap < 1:
-            gap = 1
+        gap = int(ciuraSeq(cIndex))
 
         for i in range(end):
             if gap+i < end:
@@ -28,9 +37,17 @@ def ShellSort(*args):
                     flash([display[i], display[gap + i]], "Blue")
 
                     done = False
-        dist *= 2
+        cIndex -=1
+        if cIndex == 1:
+            BubbleSort(data, display, win)
+            done = True
         
     for i in display:
         finish(i)
-        
+
     return data
+
+def ciuraSeq(num):
+    if num < 1:
+        return 1
+    return 2.25 * ciuraSeq(num-1)

@@ -1,4 +1,5 @@
 from graphics import *
+import random as R
 import time
 
 def start(title, WINWIDTH, WINHEIGHT):
@@ -46,8 +47,11 @@ def boxify(object):
                     )
 
 def reset(display):
-    for i in display:
-        i.undraw()
+    while len(display) > 0:
+        choice = R.choice(display)
+        choice.undraw()
+        display.remove(choice)
+
 
 def finish(rect):
     rect.setFill("Forest Green")
