@@ -23,4 +23,5 @@ def BubbleSort(*args):
 
     for i in display:
         finish(i)
+        
     return data

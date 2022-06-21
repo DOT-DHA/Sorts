@@ -11,9 +11,9 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 100
-    numberRange = 10000
-    random = True
+    amountOfNumbers = 5000
+    numberRange = 10
+    random = False
     done = False
 
     win = start("Sorting Examples", WINWIDTH, WINHEIGHT)

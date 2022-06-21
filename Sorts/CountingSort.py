@@ -42,6 +42,8 @@ def CountingSort(*args):
     for i in range(len(sorted)):
         display[i] = updateBar(display[i], data[i], max(data), win)
         flash(display[i], "Red")
-        finish(display[i])
+
+        if divisor * 10 > max(data):
+            finish(display[i])
     
     return data
