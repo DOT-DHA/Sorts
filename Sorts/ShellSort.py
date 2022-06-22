@@ -1,6 +1,6 @@
 from Display import *
 from graphics import *
-from Sorts.BubbleSort import BubbleSort
+from Sorts.CocktailSort import CocktailSort
 
 
 def ShellSort(*args):
@@ -31,15 +31,15 @@ def ShellSort(*args):
                     data[gap+i] = data[i]
                     data[i] = temp
                     
-                    display[i] = updateBar(display[i], data[i], max(data), win)
-                    display[gap + i] = updateBar(display[gap + i], data[gap + i], max(data), win)
+                    display[i] = updateShape(display[i], data[i], max(data), win)
+                    display[gap + i] = updateShape(display[gap + i], data[gap + i], max(data), win)
 
-                    flash([display[i], display[gap + i]], "Blue")
+                    highlightFlash(win, [display[i], display[gap + i]], "Blue")
 
                     done = False
         cIndex -=1
         if cIndex == 1:
-            BubbleSort(data, display, win)
+            CocktailSort(data, display, win)
             done = True
         
     for i in display:

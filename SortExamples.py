@@ -1,7 +1,7 @@
 from Display import *
 from graphics import *
 from NumberGen import generateData
-from Sorts.BubbleSort import BubbleSort
+from Sorts.CocktailSort import CocktailSort
 from Sorts.ShellSort import ShellSort
 from Sorts.MergeSort import MergeSort
 from Sorts.CountingSort import CountingSort
@@ -11,19 +11,20 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 1000
-    numberRange = 10000
-    random = True
+    amountOfNumbers = 500
+    numberRange = amountOfNumbers * 5
+    random = False
     done = False
 
     win = start("Sorting Examples", WINWIDTH, WINHEIGHT)
     win.setBackground("black")
 
     while not done:
+
         data, display = generateData(win, amountOfNumbers, numberRange, random)
 
         menu = []
-        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4*3), "Bubble"))
+        menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4*3), "Cocktail"))
         menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4), "Shell"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4*3), "Merge"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4), "Heap"))
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4), "Radix"))
 
         functions = []
-        functions.append(BubbleSort)
+        functions.append(CocktailSort)
         functions.append(ShellSort)
         functions.append(MergeSort)
         functions.append(HeapSort)
@@ -43,12 +44,12 @@ if __name__ == "__main__":
             boxes.append(boxify(i))
 
         for i in boxes:
-            flash(i, "white")
+            GenFlash(i, "white")
             i.setOutline("white")
             i.draw(win)
 
         for i in menu:
-            flash(i, "white")
+            GenFlash(i, "white")
             i.setOutline("white")
             i.draw(win)
 
@@ -79,7 +80,7 @@ if __name__ == "__main__":
         closeBox = boxify(close)
         redoBox = boxify(again)
 
-        flash([closeBox, redoBox]),
+        GenFlash([closeBox, redoBox]),
         closeBox.setOutline("white")
         redoBox.setOutline("white")
 

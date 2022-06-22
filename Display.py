@@ -7,17 +7,52 @@ def start(title, WINWIDTH, WINHEIGHT):
     win.setCoords(0, 0, WINWIDTH, WINHEIGHT)
     return win
 
-def updateBar(rect, newY, lMax, win):
+def updateShape(point, newY, SMAX, win):
 
-    rect.undraw()
-    point1 = rect.getP1()
-    point2x = rect.getP2().getX()
-    newRect = Rectangle(point1, Point(point2x, win.getHeight() * (newY/lMax)))
-    newRect.draw(win)
+    point.undraw()
+    pointX = point.getCenter().getX()
+    newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 3)
+    newPoint.draw(win)
+    highlightFlash(win, newPoint, "Blue")
 
-    return newRect
+    return newPoint
 
-def flash(objects, color = "Red"):
+def highlightFlash(win, objects, color = "Red"):
+    flashStorage = []
+    if type(objects) == type([]):
+        GenFlash(objects)
+        for i in objects:
+            p1x = i.getCenter().getX() - i.getRadius()
+            p2x = i.getCenter().getX() + i.getRadius()
+            py = win.getHeight()
+            flashStorage.append(Rectangle(Point(p1x,0),Point(p2x,py)))
+        for i in flashStorage:
+            i.setFill(color)
+            i.setOutline(color)
+            i.draw(win)
+    else:
+        GenFlash(objects)
+        p1x = objects.getCenter().getX() - objects.getRadius()
+        p2x = objects.getCenter().getX() + objects.getRadius()
+        py = win.getHeight()
+
+        rect = Rectangle(Point(p1x,0),Point(p2x,py))
+        rect.setFill(color)
+        rect.setOutline(color)
+        rect.draw(win)
+
+    #time.sleep(.01)
+        
+    if type(objects) == type([]):
+        while flashStorage:
+            current = flashStorage.pop(0)
+            current.undraw()
+
+            
+    else:
+        rect.undraw()
+
+def GenFlash(objects, color = "Red"):
     if type(objects) == type([]):
         for i in objects:
             i.setFill(color)
@@ -25,8 +60,6 @@ def flash(objects, color = "Red"):
     else:
         objects.setFill(color)
         objects.setOutline(color)
-
-    #time.sleep(.1)
 
     if type(objects) == type([]):
         for i in objects:
@@ -53,6 +86,6 @@ def reset(display):
         display.remove(choice)
 
 
-def finish(rect):
-    rect.setFill("Forest Green")
-    rect.setOutline("Forest Green")
+def finish(point):
+    point.setFill("Forest Green")
+    point.setOutline("Forest Green")
