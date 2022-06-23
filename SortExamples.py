@@ -11,13 +11,13 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 500
+    amountOfNumbers = 100
     numberRange = amountOfNumbers * 5
     random = False
     done = False
 
     win = start("Sorting Examples", WINWIDTH, WINHEIGHT)
-    win.setBackground("black")
+    win.setBackground("Black")
 
     while not done:
 
@@ -44,13 +44,13 @@ if __name__ == "__main__":
             boxes.append(boxify(i))
 
         for i in boxes:
-            GenFlash(i, "white")
-            i.setOutline("white")
+            Flash(i, "White")
+            i.setOutline("White")
             i.draw(win)
 
         for i in menu:
-            GenFlash(i, "white")
-            i.setOutline("white")
+            Flash(i, "White")
+            i.setOutline("White")
             i.draw(win)
 
 
@@ -80,12 +80,12 @@ if __name__ == "__main__":
         closeBox = boxify(close)
         redoBox = boxify(again)
 
-        GenFlash([closeBox, redoBox]),
-        closeBox.setOutline("white")
-        redoBox.setOutline("white")
+        Flash([closeBox, redoBox]),
+        closeBox.setOutline("White")
+        redoBox.setOutline("White")
 
-        close.setFill("white")
-        again.setFill("white")
+        close.setFill("White")
+        again.setFill("White")
 
         closeBox.draw(win)
         redoBox.draw(win)

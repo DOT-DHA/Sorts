@@ -33,54 +33,57 @@ def mainDriver(*args):
         # Sorting the second half
         R, disR = mainDriver(R, disR, win, SMAX)
 
+        highL = highlight(win, disL[0], "Create", "Blue", None)
+        highR = highlight(win, disR[0], "Create", "Blue", None)
+
         index = 0
 
         while len(L) and len(R):
             if L[0] < R[0]:
+                disL[0].undraw()
                 data[index] = L[0]
                 display[index] = disL[0]
-                highlightFlash(win, display[index],"Blue")
+                highlight(win, display[index], "Move", "Blue", highL)
             
-                disL[0].undraw()
-                updateShape(display[index], data[index], SMAX, win)
+                display[index] = updateShape(display[index], data[index], SMAX, win)
                 del disL[0]
                 del L[0]
             else:
+                disR[0].undraw()
                 data[index] = R[0]
                 display[index] = disR[0]
-                highlightFlash(win, display[index],"Blue")
+                highlight(win, display[index], "Move", "Blue", highR)
             
-                disR[0].undraw()
-                display[index].draw(win)
-                updateShape(display[index], data[index], SMAX, win)
+                display[index] = updateShape(display[index], data[index], SMAX, win)
                 del disR[0]
                 del R[0]
             index += 1
 
         # Checking if any element was left
         while len(L) > 0:
+            disL[0].undraw()
             data[index] = L[0]
             display[index] = disL[0]
-            highlightFlash(win, display[index],"Blue")
+            highlight(win, display[index], "Move", "Blue", highL)
             
-            disL[0].undraw()
-            display[index].draw(win)
-            updateShape(display[index], data[index], SMAX, win)
+            display[index] = updateShape(display[index], data[index], SMAX, win)
             del disL[0]
             del L[0]
             index += 1
 
         while len(R) > 0:
+            disR[0].undraw()
             data[index] = R[0]
             display[index] = disR[0]
-            highlightFlash(win, display[index],"Blue")
+            highlight(win, display[index], "Move", "Blue", highR)
             
-            disR[0].undraw()
-            display[index].draw(win)
-            updateShape(display[index], data[index], SMAX, win)
+            display[index] = updateShape(display[index], data[index], SMAX, win)
             del disR[0]
             del R[0]
             index += 1
+
+        highlight(win, None, "Delete", None, highL)
+        highlight(win, None, "Delete", None, highR)
 
         return data, display
     return data, display

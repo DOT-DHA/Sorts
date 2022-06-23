@@ -12,6 +12,9 @@ def ShellSort(*args):
     cIndex = 0
     gap = ciuraSeq(1)
 
+    high1 = highlight(win, None, "Create", "Blue", None)
+    high2 = highlight(win, None, "Create", "Blue", None)
+
     while not found:
         cIndex += 1
         gap = ciuraSeq(cIndex)
@@ -34,16 +37,16 @@ def ShellSort(*args):
                     display[i] = updateShape(display[i], data[i], max(data), win)
                     display[gap + i] = updateShape(display[gap + i], data[gap + i], max(data), win)
 
-                    highlightFlash(win, [display[i], display[gap + i]], "Blue")
+                    highlight(win, display[i], "Move", None, high1)
+                    highlight(win, display[gap + i], "Move", "Blue", high2)
 
                     done = False
         cIndex -=1
         if cIndex == 1:
+            highlight(win, None, "Delete", None, high1)
+            highlight(win, None, "Delete", None, high2)
             CocktailSort(data, display, win)
             done = True
-        
-    for i in display:
-        finish(i)
 
     return data
 

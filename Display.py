@@ -13,46 +13,43 @@ def updateShape(point, newY, SMAX, win):
     pointX = point.getCenter().getX()
     newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 3)
     newPoint.draw(win)
-    highlightFlash(win, newPoint, "Blue")
+    Flash(newPoint)
 
     return newPoint
 
-def highlightFlash(win, objects, color = "Red"):
-    flashStorage = []
-    if type(objects) == type([]):
-        GenFlash(objects)
-        for i in objects:
-            p1x = i.getCenter().getX() - i.getRadius()
-            p2x = i.getCenter().getX() + i.getRadius()
-            py = win.getHeight()
-            flashStorage.append(Rectangle(Point(p1x,0),Point(p2x,py)))
-        for i in flashStorage:
-            i.setFill(color)
-            i.setOutline(color)
-            i.draw(win)
-    else:
-        GenFlash(objects)
-        p1x = objects.getCenter().getX() - objects.getRadius()
-        p2x = objects.getCenter().getX() + objects.getRadius()
-        py = win.getHeight()
+def highlight(win, target, mode, color, highlighter):
+    if target == None:
+        target = Circle(Point(0,0),3)
+    if mode == None:
+        mode = "Create"
+    if color == None:
+        color = "Red"
+    if highlighter == None:
+        highlighter = Rectangle(Point(0,0),Point(0,0))
 
-        rect = Rectangle(Point(p1x,0),Point(p2x,py))
-        rect.setFill(color)
-        rect.setOutline(color)
-        rect.draw(win)
+    if mode == "Create":
+        hX = target.getCenter().getX() - target.getRadius()
+        hY = win.getHeight()
+        highlighter = Rectangle(Point(hX, 0),Point(hX + target.getRadius() * 2, hY))
+        highlighter.setOutline(color)
+        highlighter.setFill(color)
+        highlighter.draw(win)
 
-    #time.sleep(.01)
+    elif mode == "Move":
+        tX = target.getCenter().getX() - target.getRadius()
+        hX = highlighter.getP1().getX()
+        highlighter.move(tX - hX, 0)
         
-    if type(objects) == type([]):
-        while flashStorage:
-            current = flashStorage.pop(0)
-            current.undraw()
+    elif mode == "Change":
+        highlighter.setOutline(color)
+        highlighter.setFill(color)
 
-            
-    else:
-        rect.undraw()
+    elif mode == "Delete":
+        highlighter.undraw()
 
-def GenFlash(objects, color = "Red"):
+    return highlighter
+
+def Flash(objects, color = "Red"):
     if type(objects) == type([]):
         for i in objects:
             i.setFill(color)

@@ -1,4 +1,5 @@
 import random as R
+import math as M
 from graphics import *
 from Display import *
 
@@ -13,7 +14,7 @@ def generateData(win, N=10, B=10, random = False):
     if len(data) > 0:
         if random:
             for i in range(N):
-                data[i] = int(R.triangular(0, B,0))
+                data[i] = R.randint(0, B)
         else:
             for i in range(N):
                 data[i] = int(B * i / N)
@@ -25,10 +26,15 @@ def generateData(win, N=10, B=10, random = False):
     
     fun = display[:]
 
+    high = highlight(win, None, "Create", None, None)
+
     while len(fun) > 0:
         choice = R.choice(fun)
         choice.draw(win)
         fun.remove(choice)
-        highlightFlash(win, choice,"red")
+        highlight(win, choice, "Move", "Red", high)
+        Flash(choice,"Red")
+
+    highlight(win, None, "Delete", None, high)
 
     return data, display

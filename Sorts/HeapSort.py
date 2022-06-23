@@ -18,7 +18,7 @@ def HeapSort(*args):
         display[0] = updateShape(display[0], data[0], max(data), win)
         display[i] = updateShape(display[i], data[i], max(data), win)
 
-        highlightFlash(win, [display[0], display[i]], "Red")
+        highlight(win, [display[0], display[i]], "Red")
         
         finish(display[i])
     finish(display[0])
@@ -59,7 +59,7 @@ def maxHeapify(data, display, index, win, end = 0):
         display[index] = updateShape(display[index], data[index], max(data), win)
         display[largest] = updateShape(display[largest], data[largest], max(data), win)
 
-        highlightFlash(win, [display[index], display[largest]], "Blue")
+        highlight(win, [display[index], display[largest]], "Blue")
 
         data = maxHeapify(data, display, largest, win, end)
 
