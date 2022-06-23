@@ -1,6 +1,5 @@
 from graphics import *
 import random as R
-import time
 
 def start(title, WINWIDTH, WINHEIGHT):
     win = GraphWin(title, WINWIDTH, WINHEIGHT)
@@ -14,18 +13,10 @@ def updateShape(point, newY, SMAX, win):
     newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 3)
     newPoint.draw(win)
     Flash(newPoint)
-
+    
     return newPoint
 
-def highlight(win, target, mode, color, highlighter):
-    if target == None:
-        target = Circle(Point(0,0),3)
-    if mode == None:
-        mode = "Create"
-    if color == None:
-        color = "Red"
-    if highlighter == None:
-        highlighter = Rectangle(Point(0,0),Point(0,0))
+def highlight(win, target= Circle(Point(0,0),3), mode = "Create", color = "Red", highlighter = Rectangle(Point(0,0),Point(0,0))):
 
     if mode == "Create":
         hX = target.getCenter().getX() - target.getRadius()
@@ -46,6 +37,8 @@ def highlight(win, target, mode, color, highlighter):
 
     elif mode == "Delete":
         highlighter.undraw()
+        del highlighter
+        return None
 
     return highlighter
 
@@ -83,6 +76,11 @@ def reset(display):
         display.remove(choice)
 
 
-def finish(point):
-    point.setFill("Forest Green")
-    point.setOutline("Forest Green")
+def finish(points):
+    if type(points) == type([]):
+        for i in points:
+            i.setFill("Forest Green")
+            i.setOutline("Forest Green")
+    else:
+        points.setFill("Forest Green")
+        points.setOutline("Forest Green")

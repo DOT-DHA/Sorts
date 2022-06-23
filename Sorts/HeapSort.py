@@ -8,6 +8,9 @@ def HeapSort(*args):
     data = buildMaxHeap(data, display, win)
     end = len(data)-1
 
+    high1 = highlight(win, target = display[0], mode = "Create")
+    high2 = highlight(win, target = display[-1], mode = "Create", color = "Green")
+
     for i in range(end, 0, -1):
         temp = data[0]
         data[0] = data[i]
@@ -18,10 +21,16 @@ def HeapSort(*args):
         display[0] = updateShape(display[0], data[0], max(data), win)
         display[i] = updateShape(display[i], data[i], max(data), win)
 
-        highlight(win, [display[0], display[i]], "Red")
+        highlight(win, target = display[0], mode = "Move", highlighter = high1)
+        highlight(win, target = display[i], mode = "Move", highlighter = high2)
         
         finish(display[i])
     finish(display[0])
+
+    
+    highlight(win, mode = "Delete", highlighter = high1)
+    highlight(win, mode = "Delete", highlighter = high2)
+
     return data
 
 
@@ -51,6 +60,9 @@ def maxHeapify(data, display, index, win, end = 0):
     if 2 * index + 1 < end and data[2 * index + 1] > data[largest]:
         largest = 2 * index + 1
 
+    high1 = highlight(win, target = display[index], mode = "Create", color = "Blue")
+    high2 = highlight(win, target = display[largest], mode = "Create", color = "Blue")
+
     if largest != index:
         temp = data[index]
         data[index] = data[largest]
@@ -59,9 +71,13 @@ def maxHeapify(data, display, index, win, end = 0):
         display[index] = updateShape(display[index], data[index], max(data), win)
         display[largest] = updateShape(display[largest], data[largest], max(data), win)
 
-        highlight(win, [display[index], display[largest]], "Blue")
+        highlight(win, target = display[index], mode = "Move", highlighter = high1)
+        highlight(win, target = display[largest], mode = "Move", highlighter = high2)
 
         data = maxHeapify(data, display, largest, win, end)
+        
 
+    high1 = highlight(win, mode = "Delete", highlighter = high1)
+    high2 = highlight(win, mode = "Delete", highlighter = high2)
 
     return data

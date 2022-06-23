@@ -1,15 +1,12 @@
 from Display import *
 from graphics import *
-import math
 
 def MergeSort(*args):
     data, display, win = args[0], args[1], args[2]
 
-    data, display = mainDriver(data, display, win, max(data))
-    print(data)
+    mainDriver(data, display, win, max(data))
 
-    for i in display:
-        print(i.getCenter())
+    finish(display)
 
 def mainDriver(*args):
     data, display, win, SMAX = args[0], args[1], args[2], args[3]
@@ -27,14 +24,14 @@ def mainDriver(*args):
         R = data[mid:]
         disR = display[mid:]
 
+
         # Sorting the first half
-        L, disL = mainDriver(L, disL, win, SMAX)
-
+        mainDriver(L, disL, win, SMAX)
         # Sorting the second half
-        R, disR = mainDriver(R, disR, win, SMAX)
+        mainDriver(R, disR, win, SMAX)
 
-        highL = highlight(win, disL[0], "Create", "Blue", None)
-        highR = highlight(win, disR[0], "Create", "Blue", None)
+        highL = highlight(win, target = disL[0], mode = "Create", color = "Blue")
+        highR = highlight(win, target = disR[0], mode = "Create", color = "Blue")
 
         index = 0
 
@@ -42,8 +39,7 @@ def mainDriver(*args):
             if L[0] < R[0]:
                 disL[0].undraw()
                 data[index] = L[0]
-                display[index] = disL[0]
-                highlight(win, display[index], "Move", "Blue", highL)
+                highlight(win, display[index], "Move", highlighter = highL)
             
                 display[index] = updateShape(display[index], data[index], SMAX, win)
                 del disL[0]
@@ -51,8 +47,7 @@ def mainDriver(*args):
             else:
                 disR[0].undraw()
                 data[index] = R[0]
-                display[index] = disR[0]
-                highlight(win, display[index], "Move", "Blue", highR)
+                highlight(win, display[index], "Move", highlighter = highR)
             
                 display[index] = updateShape(display[index], data[index], SMAX, win)
                 del disR[0]
@@ -63,8 +58,7 @@ def mainDriver(*args):
         while len(L) > 0:
             disL[0].undraw()
             data[index] = L[0]
-            display[index] = disL[0]
-            highlight(win, display[index], "Move", "Blue", highL)
+            highlight(win, display[index], "Move", highlighter = highL)
             
             display[index] = updateShape(display[index], data[index], SMAX, win)
             del disL[0]
@@ -74,16 +68,12 @@ def mainDriver(*args):
         while len(R) > 0:
             disR[0].undraw()
             data[index] = R[0]
-            display[index] = disR[0]
-            highlight(win, display[index], "Move", "Blue", highR)
+            highlight(win, display[index], "Move", highlighter = highR)
             
             display[index] = updateShape(display[index], data[index], SMAX, win)
             del disR[0]
             del R[0]
             index += 1
 
-        highlight(win, None, "Delete", None, highL)
-        highlight(win, None, "Delete", None, highR)
-
-        return data, display
-    return data, display
+        highlight(win, mode = "Delete", highlighter = highL)
+        highlight(win, mode = "Delete", highlighter = highR)

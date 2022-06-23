@@ -7,7 +7,5 @@ def RadixSort(*args):
     
     divisor = 1
     while max(data)/divisor > 1:
-        data = CountingSort(data, display, win, 10, divisor)
+        data = CountingSort(data, display, win, 10, divisor = divisor)
         divisor *= 10
-        
-    return data

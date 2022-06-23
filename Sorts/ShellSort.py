@@ -1,19 +1,19 @@
 from Display import *
 from graphics import *
-from Sorts.CocktailSort import CocktailSort
+from Sorts.InsertionSort import InsertionSort
 
 
 def ShellSort(*args):
     data, display, win = args[0], args[1], args[2]
     done = False
-    end = len(data)
 
+    end = len(data)
     found = False
     cIndex = 0
     gap = ciuraSeq(1)
 
-    high1 = highlight(win, None, "Create", "Blue", None)
-    high2 = highlight(win, None, "Create", "Blue", None)
+    high1 = highlight(win, mode = "Create", color = "Blue")
+    high2 = highlight(win, mode = "Create", color = "Blue")
 
     while not found:
         cIndex += 1
@@ -37,18 +37,16 @@ def ShellSort(*args):
                     display[i] = updateShape(display[i], data[i], max(data), win)
                     display[gap + i] = updateShape(display[gap + i], data[gap + i], max(data), win)
 
-                    highlight(win, display[i], "Move", None, high1)
-                    highlight(win, display[gap + i], "Move", "Blue", high2)
+                    highlight(win, display[i], "Move", highlighter = high1)
+                    highlight(win, display[gap + i], "Move", highlighter = high2)
 
                     done = False
         cIndex -=1
         if cIndex == 1:
-            highlight(win, None, "Delete", None, high1)
-            highlight(win, None, "Delete", None, high2)
-            CocktailSort(data, display, win)
+            highlight(win, mode = "Delete", highlighter = high1)
+            highlight(win, mode = "Delete", highlighter = high2)
+            InsertionSort(data, display, win)
             done = True
-
-    return data
 
 def ciuraSeq(num):
     if num < 1:

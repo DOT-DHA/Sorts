@@ -26,7 +26,7 @@ def generateData(win, N=10, B=10, random = False):
     
     fun = display[:]
 
-    high = highlight(win, None, "Create", None, None)
+    high = highlight(win, mode = "Create")
 
     while len(fun) > 0:
         choice = R.choice(fun)
@@ -35,6 +35,6 @@ def generateData(win, N=10, B=10, random = False):
         highlight(win, choice, "Move", "Red", high)
         Flash(choice,"Red")
 
-    highlight(win, None, "Delete", None, high)
+    highlight(win, mode = "Delete", highlighter = high)
 
     return data, display
