@@ -14,27 +14,24 @@ def generateData(win, N=10, B=10, random = False):
     if len(data) > 0:
         if random:
             for i in range(N):
-                data[i] = R.randint(0, B)
+                data[i] = R.randrange(0, B)
         else:
             for i in range(N):
                 data[i] = int(B * i / N)
     R.shuffle(data)
     
     for i in range(N):
-        point = Circle(Point(winWidth * (( i +.5 ) / N ), winHeight * data[i] / max(data) ), 3)
+        point = Circle(Point(winWidth * (( i +.5 ) / N ), winHeight * data[i] / max(data) ), 7)
         display[i] = point
     
     fun = display[:]
 
-    high = highlight(win, mode = "Create")
 
     while len(fun) > 0:
         choice = R.choice(fun)
         choice.draw(win)
         fun.remove(choice)
-        highlight(win, choice, "Move", "Red", high)
         Flash(choice,"Red")
 
-    highlight(win, mode = "Delete", highlighter = high)
 
     return data, display

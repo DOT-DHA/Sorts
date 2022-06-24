@@ -1,6 +1,5 @@
 from Display import *
 from graphics import *
-import time
 
 
 def CocktailSort(*args):

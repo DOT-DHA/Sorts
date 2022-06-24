@@ -1,6 +1,6 @@
 from Display import *
 from graphics import *
-from Sorts.InsertionSort import InsertionSort
+from Sorts.CocktailSort import CocktailSort
 
 
 def ShellSort(*args):
@@ -45,7 +45,7 @@ def ShellSort(*args):
         if cIndex == 1:
             highlight(win, mode = "Delete", highlighter = high1)
             highlight(win, mode = "Delete", highlighter = high2)
-            InsertionSort(data, display, win)
+            CocktailSort(data, display, win)
             done = True
 
 def ciuraSeq(num):

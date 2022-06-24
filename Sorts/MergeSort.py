@@ -1,5 +1,6 @@
 from Display import *
 from graphics import *
+from Sorts.InsertionSort import InsertionSort
 
 def MergeSort(*args):
     data, display, win = args[0], args[1], args[2]
@@ -11,7 +12,11 @@ def MergeSort(*args):
 def mainDriver(*args):
     data, display, win, SMAX = args[0], args[1], args[2], args[3]
 
-    if len(data) > 1:
+    if len(data) <= 1:
+        return
+    elif len(data) > 4 and len(data) < 15:
+        InsertionSort(data, display, win)
+    else:
 
         # Finding the mid of the array
         mid = len(data)//2

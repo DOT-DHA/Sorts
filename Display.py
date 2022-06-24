@@ -1,5 +1,6 @@
 from graphics import *
 import random as R
+import math as M
 
 def start(title, WINWIDTH, WINHEIGHT):
     win = GraphWin(title, WINWIDTH, WINHEIGHT)
@@ -10,13 +11,13 @@ def updateShape(point, newY, SMAX, win):
 
     point.undraw()
     pointX = point.getCenter().getX()
-    newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 3)
+    newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 7)
     newPoint.draw(win)
     Flash(newPoint)
     
     return newPoint
 
-def highlight(win, target= Circle(Point(0,0),3), mode = "Create", color = "Red", highlighter = Rectangle(Point(0,0),Point(0,0))):
+def highlight(win, target= Circle(Point(0,0),7), mode = "Create", color = "Red", highlighter = Rectangle(Point(0,0),Point(0,0))):
 
     if mode == "Create":
         hX = target.getCenter().getX() - target.getRadius()

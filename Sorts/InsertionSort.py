@@ -15,6 +15,7 @@ def InsertionSort(*args):
         highlight(win, display[i], "Move", highlighter = high1)
         while not inPlace:
             if pos == 0:
+                finish(display[0])
                 break
 
             inPlace = True
@@ -30,8 +31,11 @@ def InsertionSort(*args):
                 highlight(win, display[pos-1], "Move", highlighter = high2)
                 inPlace = False
                 pos -= 1
+                finish([display[pos+1],display[pos]])
+                continue
+            
+            finish([display[pos],display[pos-1]])
 
-            finish([display[pos+1],display[pos]])
 
     highlight(win, mode = "Delete", highlighter = high1)
     highlight(win, mode = "Delete", highlighter = high2)
