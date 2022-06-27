@@ -1,87 +1,89 @@
 from graphics import *
-import random as R
-import math as M
 
-def start(title, WINWIDTH, WINHEIGHT):
-    win = GraphWin(title, WINWIDTH, WINHEIGHT)
-    win.setCoords(0, 0, WINWIDTH, WINHEIGHT)
-    return win
+class dis:
+    win = None
+    winWidth = None
+    winHeight = None
 
-def updateShape(point, newY, SMAX, win):
+    dSize = None
+    dMax = None
 
-    point.undraw()
-    pointX = point.getCenter().getX()
-    newPoint = Circle(Point(pointX, win.getHeight() * newY/SMAX), 7)
-    newPoint.draw(win)
-    Flash(newPoint)
+    display = None
+    highlight1 = None
+    highlight2 = None
+
+    def __init__(self, title, winWidth, winHeight):
+        self.win = GraphWin(title, winWidth, winHeight)
+        self.win.setCoords(0, 0, winWidth, winHeight)
+        self.winWidth = winWidth
+        self.winHeight = winHeight
+
+    def setDisplay(self, data):
+        self.dSize = len(data)
+        self.dMax = max(data)
+        self.display = [Point(0,0)] * self.dSize
     
-    return newPoint
-
-def highlight(win, target= Circle(Point(0,0),7), mode = "Create", color = "Red", highlighter = Rectangle(Point(0,0),Point(0,0))):
-
-    if mode == "Create":
-        hX = target.getCenter().getX() - target.getRadius()
-        hY = win.getHeight()
-        highlighter = Rectangle(Point(hX, 0),Point(hX + target.getRadius() * 2, hY))
-        highlighter.setOutline(color)
-        highlighter.setFill(color)
-        highlighter.draw(win)
-
-    elif mode == "Move":
-        tX = target.getCenter().getX() - target.getRadius()
-        hX = highlighter.getP1().getX()
-        highlighter.move(tX - hX, 0)
+        for i in range(self.dSize):
+            bar = Rectangle(
+                    Point(
+                        self.winWidth * i / self.dSize , 
+                        0
+                    ), 
+                    Point(
+                        self.winWidth * (i+1) / self.dSize,
+                        self.winHeight * data[i] / self.dMax)
+                        )
+            self.display[i] = bar
+            self.display[i].draw(self.win)
+            self.setColor(i)
         
-    elif mode == "Change":
-        highlighter.setOutline(color)
-        highlighter.setFill(color)
 
-    elif mode == "Delete":
-        highlighter.undraw()
-        del highlighter
-        return None
+    def updateShape(self, newData, index):
 
-    return highlighter
+        oldX1 = self.display[index].getP1().getX()
+        oldX2 = self.display[index].getP2().getX()
 
-def Flash(objects, color = "Red"):
-    if type(objects) == type([]):
-        for i in objects:
-            i.setFill(color)
-            i.setOutline(color)
-    else:
-        objects.setFill(color)
-        objects.setOutline(color)
+        bar = Rectangle(Point(oldX1, 0), Point(oldX2, self.winHeight * newData / self.dMax))
 
-    if type(objects) == type([]):
-        for i in objects:
-            i.setFill("Slate Gray")
-            i.setOutline("Slate Gray")
-    else:
-        objects.setFill("Slate Gray")
-        objects.setOutline("Slate Gray")
+        self.setColor(bar)
+        self.display[index].undraw()
+        self.display[index] = bar
+        self.display[index].draw(self.win)
 
-def boxify(object):
-    return Rectangle(
-                        Point(
-                            object.getAnchor().getX()-50,
-                            object.getAnchor().getY()-18),
-                        Point(
-                            object.getAnchor().getX()+50,
-                            object.getAnchor().getY()+18)
-                    )
+    def setColor(self, index, color = "Slate Gray"):
+        if type(index) == type(0):
+            if type(index) == type([]):
+                for i in index:
+                    self.display[i].setFill(color)
+                    self.display[i].setOutline(color)
+            else:
+                self.display[index].setFill(color)
+                self.display[index].setOutline(color)
 
-def reset(display):
-    while len(display) > 0:
-        choice = R.choice(display)
-        choice.undraw()
-        display.remove(choice)
+        else:
+            if type(index) == type([]):
+                for i in index:
+                    i.setFill(color)
+                    i.setOutline(color)
+            else:
+                index.setFill(color)
+                index.setOutline(color)
+
+    def boxify(self, object):
+        return Rectangle(
+                            Point(
+                                object.getAnchor().getX()-50,
+                                object.getAnchor().getY()-18),
+                            Point(
+                                object.getAnchor().getX()+50,
+                                object.getAnchor().getY()+18)
+                        )
 
 
-def finish(points):
-    if type(points) == type([]):
-        for i in points:
-            i.setFill("Forest Green")
-            i.setOutline("Forest Green")
-    else:
-        points.setFill("Forest Green")
-        points.setOutline("Forest Green")
+    def finish(self, index):
+        self.display[index].setFill("Forest Green")
+        self.display[index].setOutline("Forest Green")
+    
+    def reset(self):
+        for i in self.display:
+            i.undraw()

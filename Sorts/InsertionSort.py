@@ -2,42 +2,34 @@ from Display import *
 from graphics import *
 
 def InsertionSort(*args):
-    data, display, win = args[0], args[1], args[2]
+    data, D = args[0], args[1]
 
-    
-    high1 = highlight(win, target = display[0], mode = "Create", color = "Blue")
-    high2 = highlight(win, target = display[1], mode = "Create", color = "Green")
+    end = len(data)
 
-
-    for i in range(1, len(data)):
-        inPlace = False
+    for i in range(1, end):
         pos = i
-        highlight(win, display[i], "Move", highlighter = high1)
-        while not inPlace:
+
+        while data[pos] < data[pos - 1]:
+
+            data[pos], data[pos - 1] = data[pos - 1], data[pos]
+
+            D.updateShape(data[pos], pos)
+            D.updateShape(data[pos - 1], pos - 1)
+
+            pos -= 1
+
+            D.finish(pos + 1)
+            D.finish(pos)
+
             if pos == 0:
-                finish(display[0])
                 break
+        if pos == 0: 
+            D.finish(pos)
+        else:
+            D.finish(pos - 1)
 
-            inPlace = True
-            if data[pos] < data[pos-1]:
-                temp = data[pos]
-                data[pos] = data[pos-1]
-                data[pos-1] = temp
+    D.finish(end - 1)
 
-
-                display[pos] = updateShape(display[pos], data[pos], max(data), win)
-                display[pos-1] = updateShape(display[pos-1], data[pos-1], max(data), win)
-
-                highlight(win, display[pos-1], "Move", highlighter = high2)
-                inPlace = False
-                pos -= 1
-                finish([display[pos+1],display[pos]])
-                continue
             
-            finish([display[pos],display[pos-1]])
-
-
-    highlight(win, mode = "Delete", highlighter = high1)
-    highlight(win, mode = "Delete", highlighter = high2)
 
     return data

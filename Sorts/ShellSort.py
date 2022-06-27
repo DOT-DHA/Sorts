@@ -1,54 +1,45 @@
+import math as M
 from Display import *
 from graphics import *
-from Sorts.CocktailSort import CocktailSort
 
 
 def ShellSort(*args):
-    data, display, win = args[0], args[1], args[2]
-    done = False
+    data, D = args[0], args[1]
 
     end = len(data)
-    found = False
+
     cIndex = 0
-    gap = ciuraSeq(1)
 
-    high1 = highlight(win, mode = "Create", color = "Blue")
-    high2 = highlight(win, mode = "Create", color = "Blue")
-
-    while not found:
-        cIndex += 1
-        gap = ciuraSeq(cIndex)
-        if gap > end:
+    while True:
+        temp = M.ceil((9*(9/4)**cIndex-4)/5)
+        if temp > end:
             cIndex -= 1
-            found = True
+            break
+        cIndex += 1
 
-    while not done:
-        done = True
-        gap = int(ciuraSeq(cIndex))
+    while cIndex >= 0:
+        gap = M.ceil((9 * (9 / 4) ** cIndex - 4) / 5)
+        
+        for i in range(gap, end):
+            pos = i
 
-        for i in range(end):
-            if gap+i < end:
-                if data[i] > data[gap + i]:
+            while data[pos] < data[pos - gap]:
+                data[pos], data[pos - gap] = data[pos - gap], data[pos]
 
-                    temp = data[gap + i]
-                    data[gap+i] = data[i]
-                    data[i] = temp
-                    
-                    display[i] = updateShape(display[i], data[i], max(data), win)
-                    display[gap + i] = updateShape(display[gap + i], data[gap + i], max(data), win)
+                D.updateShape(data[pos], pos)
+                D.updateShape(data[pos - gap], pos - gap)
 
-                    highlight(win, display[i], "Move", highlighter = high1)
-                    highlight(win, display[gap + i], "Move", highlighter = high2)
+                pos -= gap
 
-                    done = False
-        cIndex -=1
-        if cIndex == 1:
-            highlight(win, mode = "Delete", highlighter = high1)
-            highlight(win, mode = "Delete", highlighter = high2)
-            CocktailSort(data, display, win)
-            done = True
+                if gap == 1:
+                    D.finish(pos + gap)
+                    D.finish(pos)
 
-def ciuraSeq(num):
-    if num < 1:
-        return 1
-    return 2.25 * ciuraSeq(num-1)
+                if pos - gap < 0:
+                    break
+            if gap == 1:
+                D.finish(pos - gap)
+            
+        cIndex -= 1
+
+    return data

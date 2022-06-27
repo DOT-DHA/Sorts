@@ -11,24 +11,26 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 1000
+    amountOfNumbers = 200
     numberRange = amountOfNumbers * 5
-    random = True
+    random = False
     done = False
 
-    win = start("Sorting Examples", WINWIDTH, WINHEIGHT)
+    D = dis("Sorting Examples", WINWIDTH, WINHEIGHT)
+    win = D.win
     win.setBackground("Black")
 
     while not done:
 
-        data, display = generateData(win, amountOfNumbers, numberRange, random)
+        data = generateData(amountOfNumbers, numberRange, random)
+        D.setDisplay(data)
 
         menu = []
         menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4*3), "Cocktail"))
         menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4), "Shell"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4*3), "Merge"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4), "Heap"))
-        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Counting"))
+        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Insertion"))
         menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4), "Radix"))
 
         functions = []
@@ -41,15 +43,15 @@ if __name__ == "__main__":
 
         boxes = []
         for i in menu:
-            boxes.append(boxify(i))
+            boxes.append(D.boxify(i))
 
         for i in boxes:
-            Flash(i, "White")
+            D.setColor(i)
             i.setOutline("White")
             i.draw(win)
 
         for i in menu:
-            Flash(i, "White")
+            D.setColor(i)
             i.setOutline("White")
             i.draw(win)
 
@@ -70,17 +72,23 @@ if __name__ == "__main__":
                     for k in menu:
                         k.undraw()
 
-                    functions[i](data, display, win, numberRange)
+                    #print(data)
+                    data = functions[i](data, D, numberRange)
+                    #print(data)
+
+                    #for i in range(len(D.display)):
+                    #    D.updateShape(data[i], i)
+
                     chosen = True
 
 
         close = Text(Point(WINWIDTH/4*3, WINHEIGHT/2), "Exit")
         again = Text(Point(WINWIDTH/4, WINHEIGHT/2), "Again?")
 
-        closeBox = boxify(close)
-        redoBox = boxify(again)
+        closeBox = D.boxify(close)
+        redoBox = D.boxify(again)
 
-        Flash([closeBox, redoBox]),
+        D.setColor([closeBox, redoBox]),
         closeBox.setOutline("White")
         redoBox.setOutline("White")
 
@@ -92,15 +100,22 @@ if __name__ == "__main__":
         close.draw(win)
         again.draw(win)
 
-        mouse = win.getMouse()
+        chosen = False
+        while not chosen:
+            mouse = win.getMouse()
 
-        if mouse.getX() < WINWIDTH/2:
-            done = False
-        else:
-            done = True
+            mousex = mouse.getX()
+            mousey = mouse.getY()
+            if mousex >= redoBox.getP1().getX() and mousex <= redoBox.getP2().getX() and mousey >= redoBox.getP1().getY() and mousey <= redoBox.getP2().getY():
+                done = False
+                chosen = True
+            elif mousex >= closeBox.getP1().getX() and mousex <= closeBox.getP2().getX() and mousey >= closeBox.getP1().getY() and mousey <= closeBox.getP2().getY():
+                done = True
+                chosen = True
 
         closeBox.undraw()
         close.undraw()
         redoBox.undraw()
         again.undraw()
-        reset(display)
+
+        D.reset()
