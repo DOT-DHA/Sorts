@@ -4,7 +4,7 @@ main code is in the `sortExamples.py` file
 
 sorts currently implimented are in the `Sorts` file and are listed below
 
-------------------------------------------------------------------------------------
+---
 
 - Cocktail sort
 - Counting sort
