@@ -1,10 +1,14 @@
-#Readme for my sort visualizations made in python
+#Readme for my sort visualizations 
+#made in python
 
-main code is in the `sortExamples.py` file
+-----------------------------------
 
-sorts currently implimented are in the `Sorts` file and are listed below
+main code is in `sortExamples.py`
 
----
+sorts currently implimented are in
+`Sorts` and are listed below
+
+-----------------------------------
 
 - Cocktail sort
 - Counting sort
