@@ -3,8 +3,6 @@
 
 -----------------------------------
 
-main code is in the `sortExamples.py` file
-
 main code is in `sortExamples.py`
 
 sorts currently implimented are in
