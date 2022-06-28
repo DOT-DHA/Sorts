@@ -3,9 +3,8 @@ from Display import *
 from graphics import *
 
 
-def ShellSort(*args):
-    data, D = args[0], args[1]
-
+def ShellSort(data, D):
+    
     end = len(data)
 
     cIndex = 0
@@ -33,11 +32,15 @@ def ShellSort(*args):
 
                 if gap == 1:
                     D.finish(pos + gap)
-                    D.finish(pos)
 
                 if pos - gap < 0:
                     break
+
+
             if gap == 1:
+                D.finish(pos)
+                if pos == 0:
+                    continue
                 D.finish(pos - gap)
             
         cIndex -= 1

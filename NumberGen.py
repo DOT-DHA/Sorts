@@ -9,10 +9,10 @@ def generateData(N = 10, Range = 10, random = False):
     if len(data) > 0:
         if random:
             for i in range(N):
-                data[i] = R.randrange(1, Range)
+                data[i] = R.randint(1, Range - 1)
         else:
             for i in range(N):
-                data[i] = int(Range * (i+1) / N)
+                data[i] = int(Range * i / N)
     R.shuffle(data)
 
     return data

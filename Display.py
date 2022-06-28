@@ -31,7 +31,7 @@ class dis:
                     ), 
                     Point(
                         self.winWidth * (i+1) / self.dSize,
-                        self.winHeight * data[i] / self.dMax)
+                        self.winHeight * (data[i]+1) / self.dMax)
                         )
             self.display[i] = bar
             self.display[i].draw(self.win)
@@ -43,7 +43,7 @@ class dis:
         oldX1 = self.display[index].getP1().getX()
         oldX2 = self.display[index].getP2().getX()
 
-        bar = Rectangle(Point(oldX1, 0), Point(oldX2, self.winHeight * newData / self.dMax))
+        bar = Rectangle(Point(oldX1, 0), Point(oldX2, self.winHeight * (newData + 1) / self.dMax))
 
         self.setColor(bar)
         self.display[index].undraw()

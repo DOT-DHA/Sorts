@@ -11,8 +11,8 @@ from Sorts.HeapSort import HeapSort
 if __name__ == "__main__":
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 200
-    numberRange = amountOfNumbers * 5
+    amountOfNumbers = 2**8
+    numberRange = amountOfNumbers * 2
     random = False
     done = False
 
@@ -30,7 +30,7 @@ if __name__ == "__main__":
         menu.append(Text(Point(WINWIDTH/6, WINHEIGHT/4), "Shell"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4*3), "Merge"))
         menu.append(Text(Point(WINWIDTH/6*3, WINHEIGHT/4), "Heap"))
-        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Insertion"))
+        menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4*3), "Counting"))
         menu.append(Text(Point(WINWIDTH/6*5, WINHEIGHT/4), "Radix"))
 
         functions = []
@@ -71,13 +71,12 @@ if __name__ == "__main__":
 
                     for k in menu:
                         k.undraw()
-
-                    #print(data)
-                    data = functions[i](data, D, numberRange)
-                    #print(data)
-
-                    #for i in range(len(D.display)):
-                    #    D.updateShape(data[i], i)
+                    if i == 4:
+                        data = CountingSort(data, D, base = numberRange)
+                    elif i == 2:
+                        data = MergeSort(data, D, 0, amountOfNumbers - 1)
+                    else:
+                        data = functions[i](data, D)
 
                     chosen = True
 

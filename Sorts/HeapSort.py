@@ -2,25 +2,29 @@ from graphics import *
 from Display import *
 
 
-def HeapSort(*args):
-    data, display, D = args[0], args[1], args[2]
+def HeapSort(data, D):
     
-    data = buildMaxHeap(data, display, D)
+    data = buildMaxHeap(data, D)
     end = len(data) - 1
 
     for i in range(end, 0, -1):
         data[0], data[i] = data[i], data[0]
 
-        maxHeapify(data, display, 0, D, i)
+        D.updateShape(data[0], 0)
+        D.updateShape(data[i], i)
+        D.finish(0)
+        D.finish(i)
+
+        maxHeapify(data, 0, D, i)
 
     return data
 
 
-def buildMaxHeap(data, display, D):
+def buildMaxHeap(data, D):
     end = len(data) - 1
 
     for i in range(end//2, -1, -1):
-        data = maxHeapify(data, display, i, D, end)
+        data = maxHeapify(data, i, D, end)
     return data
 
 
@@ -31,7 +35,7 @@ def buildMaxHeap(data, display, D):
 #data[2i+1] is right child
 
 
-def maxHeapify(data, display, index, D, end):
+def maxHeapify(data, index, D, end):
 
     if 2 * index < end and data[2 * index] > data[index]:
         largest = 2 * index
@@ -43,7 +47,9 @@ def maxHeapify(data, display, index, D, end):
 
     if largest != index:
         data[index], data[largest] = data[largest], data[index]
+        D.updateShape(data[index], index)
+        D.updateShape(data[largest], largest)
 
-        data = maxHeapify(data, display, largest, D, end)
+        data = maxHeapify(data, largest, D, end)
 
     return data

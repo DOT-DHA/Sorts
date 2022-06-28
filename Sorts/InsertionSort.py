@@ -1,9 +1,8 @@
 from Display import *
 from graphics import *
 
-def InsertionSort(*args):
-    data, D = args[0], args[1]
-
+def InsertionSort(data, D):
+    
     end = len(data)
 
     for i in range(1, end):

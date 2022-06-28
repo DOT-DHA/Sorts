@@ -2,8 +2,7 @@ from Display import *
 from graphics import *
 
 
-def CocktailSort(*args):
-    data, D = args[0], args[1]
+def CocktailSort(data, D):
 
     done = False
 
@@ -45,5 +44,8 @@ def CocktailSort(*args):
         D.finish(start)
         start += 1
     
-    for i in range(start, end):
-        D.finish(i)
+    while start <= end:
+        D.finish(start)
+        start += 1 
+        D.finish(end)
+        end -= 1 

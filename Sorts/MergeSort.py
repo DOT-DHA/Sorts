@@ -1,59 +1,57 @@
 from Display import *
-from graphics import *
-from Sorts.InsertionSort import InsertionSort
 
-def MergeSort(*args):
-    data, display, D = args[0], args[1], args[2]
+def MergeSort(data, D, l, r):
+    if(l < r):
 
-    data = mainDriver(data, display, D)
+        m = l + (r - l) // 2
+
+        data = MergeSort(data, D, l, m)
+        data = MergeSort(data, D, m + 1, r)
+
+        finish = False
+        if (r-l)+1 == len(data):
+            finish = True
+
+        data = Merge(data, D, l, m, r, finish)
+
     return data
 
-def mainDriver(*args):
-    data, display, D = args[0], args[1], args[2]
+def Merge(data, D, start, mid, end, finish):
+    start2 = mid + 1
 
-    if len(data) <= 1:
+    if (data[mid] <= data[start2]):
+        if finish:
+            D.finish(mid)
+            D.finish(start2)
         return data
-    else:
+    
+    while (start <= mid and start2 <= end):
 
-        # Finding the mid of the array
-        mid = len(data)//2
+        if (data[start] <= data[start2]):
+            if finish:
+                D.finish(start2)
+            start += 1
 
-        # Dividing the array elements
-        L = data[:mid]
+        else:
+            value = data[start2]
+            index = start2
 
-        # into 2 halves
-        R = data[mid:]
+            while(index != start):
+                data[index] = data[index - 1]
+                D.updateShape(data[index], index)
+                index -= 1
+                if finish:
+                    D.finish(index + 1)
+                    D.finish(index)
+            
+            data[start] = value
+            D.updateShape(data[start], start)
 
+            if finish:
+                D.finish(start)
 
-        # Sorting the first half
-        mainDriver(L, None, D)
-        # Sorting the second half
-        mainDriver(R, None, D)
-
-        index = 0
-
-        while len(L) and len(R):
-            if L[0] < R[0]:
-                data[index] = L[0]
-
-                del L[0]
-            else:
-                data[index] = R[0]
-
-                del R[0]
-            index += 1
-
-        # Checking if any element was left
-        while len(L) > 0:
-            data[index] = L[0]
-
-            del L[0]
-            index += 1
-
-        while len(R) > 0:
-            data[index] = R[0]
-
-            del R[0]
-            index += 1
+            start += 1
+            mid += 1
+            start2 += 1
 
     return data

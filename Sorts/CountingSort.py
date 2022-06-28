@@ -1,14 +1,13 @@
 from Display import *
 
 
-def CountingSort(*args, divisor = None):
-    data, D, base = args[0], args[1], args[2]
+def CountingSort(data, D, base = None, divisor = None):
 
     size = len(data)
     count = [0] * base
     sorted = [0] * size
 
-    for i in range(base):
+    for i in range(size):
         if divisor is not None:
             count[(data[i]//divisor) % base] += 1
         else:
@@ -36,5 +35,10 @@ def CountingSort(*args, divisor = None):
 
     for i in range(len(data)):
         D.updateShape(data[i], i)
+        if divisor is not None:
+            if divisor * base > max(data):
+                D.finish(i)
+        else:
+            D.finish(i)
 
     return data
