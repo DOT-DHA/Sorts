@@ -1,57 +1,52 @@
 from Display import *
 
-def MergeSort(data, D, l, r):
-    if(l < r):
+#fix highlighting
+#not currently working
 
-        m = l + (r - l) // 2
+def MergeSort(data, display, D):
+    if len(data) > 1:
 
-        data = MergeSort(data, D, l, m)
-        data = MergeSort(data, D, m + 1, r)
+        mid = len(data)//2
 
-        finish = False
-        if (r-l)+1 == len(data):
-            finish = True
+        L = data[:mid]
+        disL = display[:mid]
 
-        data = Merge(data, D, l, m, r, finish)
+        R = data[mid:]
+        disR = display[mid:]
 
-    return data
+        data, display = MergeSort(L, disL, D)
 
-def Merge(data, D, start, mid, end, finish):
-    start2 = mid + 1
+        data, display = MergeSort(R, disR, D)
 
-    if (data[mid] <= data[start2]):
-        if finish:
-            D.finish(mid)
-            D.finish(start2)
-        return data
-    
-    while (start <= mid and start2 <= end):
+        
+        lIndex, index, rIndex = 0, 0, 0
+        tempData = [0] * (len(L)+len(R))
 
-        if (data[start] <= data[start2]):
-            if finish:
-                D.finish(start2)
-            start += 1
+        while lIndex < len(L) and rIndex < len(R):
+            if L[0] < R[0]:
+                tempData[index] = L[lIndex]
+                display[index] = disL[lIndex]
+                D.updateShape(tempData[index], index)
+                lIndex += 1
+            else:
+                tempData[index] = R[rIndex]
+                display[index] = disR[rIndex]
+                D.updateShape(tempData[index], index)
+                rIndex += 1 
+            index += 1
 
-        else:
-            value = data[start2]
-            index = start2
+        while lIndex < len(L):
+            tempData[index] = L[lIndex]
+            display[index] = disL[lIndex]
+            D.updateShape(tempData[index], index)
+            lIndex += 1
+            index += 1
 
-            while(index != start):
-                data[index] = data[index - 1]
-                D.updateShape(data[index], index)
-                index -= 1
-                if finish:
-                    D.finish(index + 1)
-                    D.finish(index)
-            
-            data[start] = value
-            D.updateShape(data[start], start)
+        while lIndex < len(R):
+            tempData[index] = R[rIndex]
+            display[index] = disR[rIndex]
+            D.updateShape(tempData[index], index)
+            rIndex += 1
+            index += 1
 
-            if finish:
-                D.finish(start)
-
-            start += 1
-            mid += 1
-            start2 += 1
-
-    return data
+    return tempData, display

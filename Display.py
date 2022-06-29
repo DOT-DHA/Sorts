@@ -1,5 +1,6 @@
 from graphics import *
 
+#display class
 class dis:
     win = None
     winWidth = None
@@ -9,8 +10,6 @@ class dis:
     dMax = None
 
     display = None
-    highlight1 = None
-    highlight2 = None
 
     def __init__(self, title, winWidth, winHeight):
         self.win = GraphWin(title, winWidth, winHeight)
@@ -47,7 +46,7 @@ class dis:
 
         self.setColor(bar)
         self.display[index].undraw()
-        self.display[index] = bar
+        self.display[index] = bar 
         self.display[index].draw(self.win)
 
     def setColor(self, index, color = "Slate Gray"):
