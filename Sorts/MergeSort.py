@@ -1,7 +1,7 @@
 from Display import *
 
 #fix highlighting
-#Working but not how i would like for show
+#"done" but not displaying how i would like
 
 def MergeSort(data, D):
 
@@ -13,13 +13,12 @@ def MergeSort(data, D):
         L = data[:mid]
         R = data[mid:]
         
-        index = 0
-
         L = MergeSort(L, D)
         R = MergeSort(R, D)
 
-        
         tempData = [0] * (len(L) + len(R))
+
+        index = 0
 
         while len(L) and len(R):
             if L[0] < R[0]:
@@ -44,5 +43,9 @@ def MergeSort(data, D):
             del R[0]
             index += 1
         data = tempData
+
+    if len(data) == len(D.display):
+        for i in range(len(data)):
+            D.finish(i)
 
     return data
