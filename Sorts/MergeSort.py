@@ -1,52 +1,48 @@
 from Display import *
 
 #fix highlighting
-#not currently working
+#Working but not how i would like for show
 
-def MergeSort(data, display, D):
+def MergeSort(data, D):
+
     if len(data) > 1:
+
 
         mid = len(data)//2
 
         L = data[:mid]
-        disL = display[:mid]
-
         R = data[mid:]
-        disR = display[mid:]
+        
+        index = 0
 
-        data, display = MergeSort(L, disL, D)
-
-        data, display = MergeSort(R, disR, D)
+        L = MergeSort(L, D)
+        R = MergeSort(R, D)
 
         
-        lIndex, index, rIndex = 0, 0, 0
-        tempData = [0] * (len(L)+len(R))
+        tempData = [0] * (len(L) + len(R))
 
-        while lIndex < len(L) and rIndex < len(R):
+        while len(L) and len(R):
             if L[0] < R[0]:
-                tempData[index] = L[lIndex]
-                display[index] = disL[lIndex]
+                tempData[index] = L[0]
                 D.updateShape(tempData[index], index)
-                lIndex += 1
+                del L[0]
             else:
-                tempData[index] = R[rIndex]
-                display[index] = disR[rIndex]
+                tempData[index] = R[0]
                 D.updateShape(tempData[index], index)
-                rIndex += 1 
+                del R[0]
             index += 1
 
-        while lIndex < len(L):
-            tempData[index] = L[lIndex]
-            display[index] = disL[lIndex]
+        while len(L):
+            tempData[index] = L[0]
             D.updateShape(tempData[index], index)
-            lIndex += 1
+            del L[0]
             index += 1
 
-        while lIndex < len(R):
-            tempData[index] = R[rIndex]
-            display[index] = disR[rIndex]
+        while len(R):
+            tempData[index] = R[0]
             D.updateShape(tempData[index], index)
-            rIndex += 1
+            del R[0]
             index += 1
+        data = tempData
 
-    return tempData, display
+    return data

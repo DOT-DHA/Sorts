@@ -15,7 +15,7 @@ if __name__ == "__main__":
     #starting variables
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 128
+    amountOfNumbers = 512
     numberRange = amountOfNumbers * 2
     random = False
     done = False
@@ -86,8 +86,6 @@ if __name__ == "__main__":
 
                     if i == 4:
                         data = CountingSort(data, D, base = numberRange)
-                    elif i == 2:
-                        data, D.display = MergeSort(data, D.display, D)
                     else:
                         data = functions[i](data, D)
 
