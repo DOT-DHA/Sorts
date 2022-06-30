@@ -11,12 +11,14 @@ class dis:
 
     display = None
 
+    #initializing graphics window
     def __init__(self, title, winWidth, winHeight):
         self.win = GraphWin(title, winWidth, winHeight)
         self.win.setCoords(0, 0, winWidth, winHeight)
         self.winWidth = winWidth
         self.winHeight = winHeight
 
+    #creating rectangle objects for display
     def setDisplay(self, data):
         self.dSize = len(data)
         self.dMax = max(data)
@@ -36,7 +38,7 @@ class dis:
             self.display[i].draw(self.win)
             self.setColor(i)
         
-
+    #updating a rectangle with a new height
     def updateShape(self, newData, index):
 
         oldX1 = self.display[index].getP1().getX()
@@ -49,6 +51,7 @@ class dis:
         self.display[index] = bar 
         self.display[index].draw(self.win)
 
+    #changeing color of object recived
     def setColor(self, index, color = "Slate Gray"):
         if type(index) == type(0):
             if type(index) == type([]):
@@ -68,6 +71,7 @@ class dis:
                 index.setFill(color)
                 index.setOutline(color)
 
+    #adding a box around an object
     def boxify(self, object):
         return Rectangle(
                             Point(
@@ -78,11 +82,12 @@ class dis:
                                 object.getAnchor().getY()+18)
                         )
 
-
+    #turning an object green
     def finish(self, index):
         self.display[index].setFill("Forest Green")
         self.display[index].setOutline("Forest Green")
     
+    #undrawing all object from display
     def reset(self):
         for i in self.display:
             i.undraw()

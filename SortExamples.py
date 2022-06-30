@@ -15,7 +15,7 @@ if __name__ == "__main__":
     #starting variables
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 16
+    amountOfNumbers = 128
     numberRange = amountOfNumbers * 2
     random = False
     done = False
