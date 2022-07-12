@@ -25,6 +25,7 @@ def CocktailSort(data, D):
                 
                 D.updateShape(data[i], i)
                 D.updateShape(data[i + 1], i + 1)
+                update()
 
                 done = False
 
@@ -47,6 +48,7 @@ def CocktailSort(data, D):
                 
                 D.updateShape(data[i], i)
                 D.updateShape(data[i + 1], i + 1)
+                update()
 
                 done = False
 

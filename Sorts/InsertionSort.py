@@ -18,6 +18,7 @@ def InsertionSort(data, D):
             D.updateShape(data[pos], pos)
             D.updateShape(data[pos - 1], pos - 1)
             D.finish(pos)
+            update()
             pos -= 1
 
             #dont want negative numbers

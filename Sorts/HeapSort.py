@@ -9,17 +9,17 @@ def HeapSort(data, D):
     end = len(data) - 1
 
     #swaps first element and the last element and then remakes the heap
-    for i in range(end, 0, -1):
+    for i in range(end, -1, -1):
         data[0], data[i] = data[i], data[0]
 
         #swap and finish
         D.updateShape(data[0], 0)
         D.updateShape(data[i], i)
-        D.finish(i)
 
         #re-heap after moving
         maxHeapify(data, 0, D, i)
 
+        D.finish(i)
     return data
 
 #builds the heap by heapifying the array starting in the middle
@@ -28,6 +28,7 @@ def buildMaxHeap(data, D):
 
     for i in range(end//2, -1, -1):
         data = maxHeapify(data, i, D, end)
+        update()
     return data
 
 

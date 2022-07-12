@@ -23,9 +23,9 @@ def ShellSort(data, D):
         #moving up the array from gap to end one place at a time
         for j in range(gap, end):
             pos = j
-
+            
             #swapping data down while not in the right place
-            while data[pos] < data[pos - gap]:
+            while pos - gap > 0 and data[pos] < data[pos - gap]:
 
                 #swaping data and updating display
                 data[pos], data[pos - gap] = data[pos - gap], data[pos]
@@ -37,11 +37,7 @@ def ShellSort(data, D):
                 #finishing if we are on the last loop
                 if gap == 1:
                     D.finish(pos + gap)
-
-                #dont want to go negative
-                if pos - gap < 0:
-                    break
-
+            update()
             #finishing if we are on the last loop
             if gap == 1:
                 D.finish(pos)

@@ -30,18 +30,21 @@ def MergeSort(data, D):
                 D.updateShape(tempData[index], index)
                 del R[0]
             index += 1
+            update()
 
         while len(L):
             tempData[index] = L[0]
             D.updateShape(tempData[index], index)
             del L[0]
             index += 1
+            update()
 
         while len(R):
             tempData[index] = R[0]
             D.updateShape(tempData[index], index)
             del R[0]
             index += 1
+            update()
         data = tempData
 
     if len(data) == len(D.display):

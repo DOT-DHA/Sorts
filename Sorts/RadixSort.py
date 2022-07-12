@@ -7,7 +7,7 @@ from Sorts.CountingSort import CountingSort
 def RadixSort(data, D):
     
     #setting base, and max digit position
-    base = 2
+    base = 10
     dMax = M.floor(M.log(max(data), base)) + 1
 
     for i in range(dMax):

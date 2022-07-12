@@ -15,13 +15,13 @@ if __name__ == "__main__":
     #starting variables
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 1024
+    amountOfNumbers = 4096
     numberRange = amountOfNumbers * 2
     random = True
     done = False
 
     #setting up my display class and window object
-    D = dis("Sorting Examples", WINWIDTH, WINHEIGHT)
+    D = dis("Sorting Examples", WINWIDTH, WINHEIGHT, False)
     win = D.win
     win.setBackground("Black")
 

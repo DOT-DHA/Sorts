@@ -12,8 +12,8 @@ class dis:
     display = None
 
     #initializing graphics window
-    def __init__(self, title, winWidth, winHeight):
-        self.win = GraphWin(title, winWidth, winHeight)
+    def __init__(self, title, winWidth, winHeight, flush):
+        self.win = GraphWin(title, winWidth, winHeight, flush)
         self.win.setCoords(0, 0, winWidth, winHeight)
         self.winWidth = winWidth
         self.winHeight = winHeight
@@ -37,6 +37,7 @@ class dis:
             self.display[i] = bar
             self.display[i].draw(self.win)
             self.setColor(i)
+            update()
         
     #updating a rectangle with a new height
     def updateShape(self, newData, index):
@@ -86,8 +87,10 @@ class dis:
     def finish(self, index):
         self.display[index].setFill("Forest Green")
         self.display[index].setOutline("Forest Green")
+        update()
     
     #undrawing all object from display
     def reset(self):
         for i in self.display:
             i.undraw()
+            update()

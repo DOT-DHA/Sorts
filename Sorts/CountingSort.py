@@ -44,6 +44,8 @@ def CountingSort(data, D, base = None, divisor = None):
         if divisor is not None:
             if divisor * base > max(data):
                 D.finish(i)
+                continue
+            update()
         else:
             D.finish(i)
 
