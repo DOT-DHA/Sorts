@@ -13,7 +13,7 @@ def generateData(N, Range, random):
         #generating random data
         if random:
             for i in range(N):
-                data[i] = R.randint(1, Range - 1)
+                data[i] = int(R.triangular(1, Range - 1))
 
         #generating linear data
         else:

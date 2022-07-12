@@ -15,9 +15,9 @@ if __name__ == "__main__":
     #starting variables
     WINHEIGHT = 9 * 90
     WINWIDTH = 9 * 160
-    amountOfNumbers = 2**8
+    amountOfNumbers = 1024*4
     numberRange = amountOfNumbers * 2
-    random = False
+    random = True
     done = False
 
     #setting up my display class and window object
