@@ -25,7 +25,7 @@ def ShellSort(data, D):
             pos = j
             
             #swapping data down while not in the right place
-            while pos - gap > 0 and data[pos] < data[pos - gap]:
+            while pos - gap >= 0 and data[pos] < data[pos - gap]:
 
                 #swaping data and updating display
                 data[pos], data[pos - gap] = data[pos - gap], data[pos]
